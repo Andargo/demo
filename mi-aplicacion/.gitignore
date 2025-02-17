@@ -1,0 +1,12 @@
+# Ignorar archivos de Eclipse
+.classpath
+.project
+.settings/
+
+# Ignorar archivos generados por Maven
+target/
+*.jar
+*.log
+
+# Ignorar carpetas de Git
+.git/
