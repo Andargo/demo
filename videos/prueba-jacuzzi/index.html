@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Prueba jacuzzi — Casa Boscana</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #1a1410;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: Montserrat, sans-serif;
+      }
+
+      /* Cámara en mano (bloque camera-shake del catálogo) */
+      .camera-shake-frame {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .camera-shake-rig {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+
+      /* La foto 1440×961 escalada a 1920 de alto = 2877 de ancho; se panea dentro del 9:16 */
+      #pan {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2877px;
+        height: 1920px;
+        transform-origin: 50% 70%;
+      }
+      #pan img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      /* Copia de la foto recortada al agua del jacuzzi, con distorsión animada */
+      #agua {
+        clip-path: polygon(41% 64%, 87.8% 65.6%, 88.3% 80.1%, 79.9% 83.2%, 62.5% 84.1%, 52.8% 82.2%, 44.4% 77.5%, 40.6% 71.8%);
+        filter: url(#onda);
+      }
+      /* Reflejo de sol que respira sobre el agua */
+      #brillo {
+        position: absolute;
+        left: 1560px;
+        top: 1300px;
+        width: 700px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(255, 255, 240, 0.55), rgba(255, 255, 240, 0));
+        mix-blend-mode: screen;
+      }
+      /* Calidez de atardecer arriba a la derecha */
+      #sol {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 92% 8%, rgba(255, 196, 120, 0.55), rgba(255, 170, 90, 0) 45%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+      #viñeta {
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 220px rgba(20, 10, 0, 0.45);
+        pointer-events: none;
+      }
+
+      /* Texto estilo Instagram */
+      #pov {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        top: 470px;
+        text-align: center;
+        color: #fffaf2;
+        font-weight: 700;
+        font-size: 58px;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+      }
+      #pov span {
+        display: inline;
+        padding: 10px 22px;
+        border-radius: 18px;
+        background: rgba(20, 14, 10, 0.62);
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="4"
+      data-width="1080"
+      data-height="1920"
+    >
+      <svg width="0" height="0" style="position: absolute">
+        <filter id="onda" x="0" y="0" width="100%" height="100%">
+          <feTurbulence id="onda-ruido" type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="7" result="ruido" />
+          <feOffset id="onda-mov" in="ruido" dx="0" dy="0" result="ruidoMovido" />
+          <feDisplacementMap in="SourceGraphic" in2="ruidoMovido" scale="22" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
+
+      <section id="toma" class="clip" data-start="0" data-duration="4" data-track-index="0">
+        <div class="camera-shake-frame" data-layout-allow-overflow>
+          <div class="camera-shake-rig" id="rig" data-layout-allow-overflow>
+            <div id="pan" data-layout-allow-overflow>
+              <img src="assets/jacuzzi.jpg" alt="Jacuzzi con vista a las montañas" />
+              <img id="agua" src="assets/jacuzzi.jpg" alt="" />
+              <div id="brillo"></div>
+            </div>
+          </div>
+        </div>
+        <div id="sol"></div>
+        <div id="viñeta"></div>
+      </section>
+
+      <div id="pov" class="clip" data-start="0.25" data-duration="3.75" data-track-index="1">
+        <span>POV: estás a 2 h de Bogotá</span>
+      </div>
+
+      <!-- Grano de película (bloque grain-overlay del catálogo) -->
+      <div id="grain-overlay" style="position: absolute; inset: 0; pointer-events: none; z-index: 100">
+        <div class="grain-texture"></div>
+      </div>
+      <style>
+        @keyframes hf-grain-noise {
+          0%, 100% { transform: translate(0, 0); }
+          10% { transform: translate(-5%, -5%); }
+          20% { transform: translate(-10%, 5%); }
+          30% { transform: translate(5%, -10%); }
+          40% { transform: translate(-5%, 15%); }
+          50% { transform: translate(-10%, 5%); }
+          60% { transform: translate(15%, 0); }
+          70% { transform: translate(0, 10%); }
+          80% { transform: translate(-15%, 0); }
+          90% { transform: translate(10%, 5%); }
+        }
+        #grain-overlay .grain-texture {
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+          opacity: 0.12;
+          animation: hf-grain-noise 0.5s steps(1) infinite;
+        }
+      </style>
+    </div>
+
+    <script src="assets/camera-shake.js"></script>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Paneo de cámara: del agua del jacuzzi hacia el valle, con un acercamiento rápido al final
+      tl.fromTo("#pan", { x: -760 }, { x: -1560, duration: 4, ease: "sine.inOut" }, 0);
+      tl.fromTo("#pan", { scale: 1.04 }, { scale: 1.09, duration: 3.15, ease: "none" }, 0);
+      tl.to("#pan", { scale: 1.2, duration: 0.45, ease: "power3.out" }, 3.15);
+
+      // Cámara en mano
+      window.cameraShake(tl, "#rig", { profile: "handheld-normal-mild", intensity: 0.7, duration: 4, fps: 30 });
+
+      // Agua en movimiento: el ruido se desplaza cuadro a cuadro (seek-safe vía setter)
+      const mov = document.getElementById("onda-mov");
+      const ruido = document.getElementById("onda-ruido");
+      const agua = {};
+      let fase = 0;
+      Object.defineProperty(agua, "t", {
+        get: () => fase,
+        set: (t) => {
+          fase = t;
+          mov.setAttribute("dx", (t * 38).toFixed(2));
+          mov.setAttribute("dy", (Math.sin(t * 2.1) * 6).toFixed(2));
+          ruido.setAttribute("baseFrequency", `${(0.012 + Math.sin(t * 1.7) * 0.002).toFixed(4)} ${(0.05 + Math.cos(t * 1.3) * 0.006).toFixed(4)}`);
+        },
+      });
+      agua.t = 0;
+      tl.to(agua, { t: 4, duration: 4, ease: "none" }, 0);
+
+      // Brillo y sol que respiran
+      tl.fromTo("#brillo", { opacity: 0.35, scale: 0.9 }, { opacity: 0.85, scale: 1.08, duration: 1, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+      tl.fromTo("#sol", { opacity: 0.6 }, { opacity: 1, duration: 2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // Texto: aparece con un pequeño salto, como en Instagram
+      tl.fromTo("#pov", { opacity: 0, scale: 0.86, y: 18 }, { opacity: 1, scale: 1, y: 0, duration: 0.32, ease: "back.out(2.2)" }, 0.25);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
