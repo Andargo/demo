@@ -230,8 +230,16 @@ function render(t) {
 window.DURATION = DURATION;
 window.seek = t => render(t);
 
-// Vista previa en navegador: reproduce en bucle si no se controla externamente
-if (!new URLSearchParams(location.search).has('render')) {
+// Portada para Instagram: texto dentro del recorte 3:4 de la cuadrícula del perfil
+const params = new URLSearchParams(location.search);
+if (params.has('cover')) {
+  render(12.5);
+  const h = $('h1');
+  h.innerHTML = 'Del sueño<br>a la <em>realidad.</em>';
+  Object.assign(h.style, { top: '300px', fontSize: '120px' });
+  h.querySelector('em').style.fontSize = '140px';
+  $('tag').style.opacity = 0;
+} else if (!params.has('render')) {
   const start = performance.now();
   (function loop(now) { render(((now - start) / 1000) % DURATION); requestAnimationFrame(loop); })(start);
 } else {
