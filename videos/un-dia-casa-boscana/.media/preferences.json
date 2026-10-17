@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "un-dia-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.522Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "un-dia-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.587Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "un-dia-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.664Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "un-dia-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.741Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "un-dia-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.807Z"
+    }
+  },
+  "sightings": {}
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "huespedes-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.879Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "huespedes-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:05.946Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "huespedes-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:06.036Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "huespedes-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:06.117Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "huespedes-casa-boscana"
+      ],
+      "updated_at": "2026-10-17T02:04:06.190Z"
+    }
+  },
+  "sightings": {}
+}
