@@ -1,6 +1,6 @@
 # Publicación en Instagram — Reel Casa Boscana
 
-**Video:** `casa-boscana-reel.mp4` (9:16, 25 s)
+**Video:** `casa-boscana-reel.mp4` (9:16, 28 s)
 **Portada:** `portada-instagram.jpg` (el texto queda dentro del recorte 3:4 del perfil)
 
 ## Texto del post
@@ -14,7 +14,8 @@ Casa Boscana es un refugio para dos entre las montañas de Guateque, Boyacá, a 
 🛁 Jacuzzi con vista
 🔥 Fogata y BBQ
 🐶 Pet friendly
-⭐ Superhost 5.0
+⭐ 4.89 · 79 reseñas · Favorito entre huéspedes
+🔑 Llegada autónoma
 
 ¿A quién traerías aquí? Etiquétalo 👇
 Reserva desde el link en la bio 🔗
